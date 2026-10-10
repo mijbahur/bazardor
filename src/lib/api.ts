@@ -26,3 +26,14 @@ export async function getProducts(): Promise<Product[]> {
 
   return data;
 }
+
+export const topRisers = (products: Product[], n = 6) =>
+  products
+    .filter((product) => product.change.dir === "up" && product.change.pct > 0)
+    .sort((a, b) => b.change.pct - a.change.pct)
+    .slice(0, n);
+export const topFallers = (products: Product[], n = 6) =>
+  products
+    .filter((product) => product.change.dir === "down" && product.change.pct < 0)
+    .sort((a, b) => a.change.pct - b.change.pct)
+    .slice(0, n);

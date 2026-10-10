@@ -1,4 +1,3 @@
-import type { Category } from "@/lib/types";
 import NavLinksClient from "./NavLinksClient";
 import { getCategories } from "@/lib/api";
 

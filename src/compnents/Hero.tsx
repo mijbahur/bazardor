@@ -19,7 +19,7 @@ export default function Hero() {
                     <div className="mt-6 flex flex-wrap items-center gap-4">
                         <a
                             href="#সব-পণ্য"
-                            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:text-base"
+                            className="btn btn-sm sm:btn-md rounded-full border-0 bg-brand px-6 font-semibold text-white hover:bg-brand-dark"
                         >
                             সব পণ্য দেখুন
                         </a>
