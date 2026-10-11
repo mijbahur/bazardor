@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import GoogleIcon from "./GoogleIcon";
 import { authClient } from "@/lib/auth-client";
+import GithubIcon from "./GithubIcon";
 
 export default function SignInForm() {
     const router = useRouter();
@@ -57,6 +58,13 @@ export default function SignInForm() {
             callbackURL: "/",
         });
         if (error) toast.error("Google দিয়ে সাইন ইন করা যায়নি।");
+    };
+    const onGithub = async () => {
+        const { error } = await authClient.signIn.social({
+            provider: "github",
+            callbackURL: "/",
+        });
+        if (error) toast.error("GitHub দিয়ে সাইন ইন করা যায়নি।");
     };
 
     return (
@@ -115,12 +123,26 @@ export default function SignInForm() {
                 <span className="h-px flex-1 bg-line" />
             </div>
 
-            <button
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <button
+                    onClick={onGoogle}
+                    className="btn rounded-xl border-line bg-white font-medium text-ink hover:border-brand"
+                >
+                    <GoogleIcon /> Google
+                </button>
+                <button
+                    onClick={onGithub}
+                    className="btn rounded-xl border-line bg-white font-medium text-ink hover:border-brand"
+                >
+                    <GithubIcon /> GitHub
+                </button>
+            </div>
+            {/* <button
                 onClick={onGoogle}
                 className="btn w-full rounded-xl border-line bg-white font-medium text-ink hover:border-brand"
             >
                 <GoogleIcon /> Google দিয়ে চালিয়ে যান
-            </button>
+            </button> */}
 
             <p className="mt-6 text-center text-sm">
                 অ্যাকাউন্ট নেই?{" "}

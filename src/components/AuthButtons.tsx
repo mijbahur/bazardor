@@ -20,7 +20,7 @@ export default function AuthButtons() {
             return;
         }
         toast.success("সফলভাবে সাইন আউট হয়েছে।");
-        router.push("/");
+        router.push("/signin");
         router.refresh();
     };
 

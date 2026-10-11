@@ -15,7 +15,7 @@ export default function ProfilePage() {
         const { error } = await authClient.signOut();
         if (error) return toast.error("সাইন আউট করা যায়নি।");
         toast.success("সফলভাবে সাইন আউট হয়েছে।");
-        router.push("/");
+        router.push("/signin");
         router.refresh();
     };
 
