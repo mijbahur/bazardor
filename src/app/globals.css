@@ -26,3 +26,15 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+.skeleton-box {
+  background-color: var(--color-brand-soft);
+  animation: brand-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes brand-pulse {
+  50% {
+    background-color: var(--color-brand);
+    opacity: 0.35;
+  }
+}

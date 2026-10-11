@@ -1,3 +1,22 @@
+export function NavLinksSkeleton() {
+    return (
+        <nav
+            aria-label="বিভাগ লোড হচ্ছে"
+            role="status"
+            className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:justify-center sm:px-0"
+        >
+            {[16, 20, 14, 24, 18].map((width, index) => (
+                <span
+                    key={index}
+                    aria-hidden="true"
+                    className="skeleton-box h-10 shrink-0 !rounded-full"
+                    style={{ width: `${width * 4}px` }}
+                />
+            ))}
+        </nav>
+    );
+}
+
 export function ProductCardSkeleton() {
     return (
         <div className="flex flex-col gap-3 rounded-2xl border border-line bg-white p-4">
@@ -45,6 +64,34 @@ export function PageSkeleton() {
                 <div className="skeleton-box h-6 w-48" />
                 <ProductGridSkeleton count={4} />
             </div>
+        </div>
+    );
+}
+
+export function ProductDetailSkeleton() {
+    return (
+        <div
+            className="space-y-8"
+            role="status"
+            aria-label="পণ্য লোড হচ্ছে…"
+        >
+            <div className="skeleton-box h-4 w-40" />
+            <div className="skeleton-box h-56 w-full !rounded-3xl" />
+            <section className="space-y-4">
+                <div className="skeleton-box h-6 w-48" />
+                <div className="grid gap-4 sm:grid-cols-3">
+                    {Array.from({ length: 3 }, (_, index) => (
+                        <div
+                            key={index}
+                            className="skeleton-box h-28 w-full !rounded-2xl"
+                        />
+                    ))}
+                </div>
+            </section>
+            <section className="space-y-4">
+                <div className="skeleton-box h-6 w-56" />
+                <div className="skeleton-box h-64 w-full !rounded-2xl" />
+            </section>
         </div>
     );
 }

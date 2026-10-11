@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AuthButtons from "./AuthButtons";
 import NavLinks from "./NavLinks";
+import { NavLinksSkeleton } from "./Skeletons";
 import { connection } from "next/server";
 import { Suspense } from "react";
 
@@ -48,7 +49,7 @@ export default function Header() {
                     <AuthButtons />
                 </div>
                 <div className="mt-3">
-                    <Suspense fallback={<p>Loading categories...</p>}>
+                    <Suspense fallback={<NavLinksSkeleton />}>
                         <NavLinks />
                     </Suspense>
                 </div>

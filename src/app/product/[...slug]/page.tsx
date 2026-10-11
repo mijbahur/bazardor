@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import ChangeBadge from "@/components/ChangeBadge";
+import { ProductDetailSkeleton } from "@/components/Skeletons";
 import { getProduct } from "@/lib/api";
 import { formatNumber, formatTaka, toBn } from "@/lib/bangla";
 
@@ -14,33 +15,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     return { title: product?.nameBn ?? "পণ্য পাওয়া যায়নি" };
 }
 
-function ProductPageFallback() {
-    return (
-        <div className="space-y-8" aria-busy="true" aria-label="পণ্য লোড হচ্ছে">
-            <div className="skeleton-box h-4 w-40" />
-            <div className="skeleton-box h-56 w-full !rounded-3xl" />
-            <section className="space-y-4">
-                <div className="skeleton-box h-6 w-48" />
-                <div className="grid gap-4 sm:grid-cols-3">
-                    {Array.from({ length: 3 }, (_, index) => (
-                        <div
-                            key={index}
-                            className="skeleton-box h-28 w-full !rounded-2xl"
-                        />
-                    ))}
-                </div>
-            </section>
-            <section className="space-y-4">
-                <div className="skeleton-box h-6 w-56" />
-                <div className="skeleton-box h-64 w-full !rounded-2xl" />
-            </section>
-        </div>
-    );
-}
-
 export default function ProductPage({ params }: Params) {
     return (
-        <Suspense fallback={<ProductPageFallback />}>
+        <Suspense fallback={<ProductDetailSkeleton />}>
             <ProductContent params={params} />
         </Suspense>
     );
