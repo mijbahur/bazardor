@@ -5,11 +5,24 @@
     --color-brand: #0a8a3f;
     --color-brand-dark: #066a30;
     --color-brand-soft: #e3f1e8;
-    --color-sage: #f0f5f0;
+    --color-sage: #f3fbf4;
     --color-ink: #15231a;
     --color-muted: #5f6e64;
     --color-line: #dbe5dd;
     --color-up: #0a8a3f;
     --color-down: #d6372c;
     --font-sans: var(--font-hind), "Noto Sans Bengali", system-ui, sans-serif;
+}
+:root {
+  --b-bg: var(--color-sage);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+body {
+  background: var(--color-sage);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }

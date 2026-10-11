@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Ticker from "@/components/Ticker";
 
 const hind = Hind_Siliguri({
     subsets: ["latin", "bengali"],
@@ -28,9 +30,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
             <body className="min-h-full flex flex-col bg-white text-neutral-900 [color-scheme:light]">
                 <Header />
+                <Ticker />
                 <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
                     {children}
                 </main>
+                <Footer />
             </body>
         </html>
     );
