@@ -1,50 +1,60 @@
 import { Category, Product } from "./types";
 
 export async function getCategories(): Promise<Category[]> {
-  const res = await fetch(
-    "https://openapi.programming-hero.com/api/bazardor/categories"
-  );
+    const res = await fetch(
+        "https://openapi.programming-hero.com/api/bazardor/categories",
+    );
 
-  if (!res.ok) {
-    throw new Error(`Failed to load categories: ${res.status}`);
-  }
+    if (!res.ok) {
+        throw new Error(`Failed to load categories: ${res.status}`);
+    }
 
-  const data = await res.json();
+    const data = await res.json();
 
-  return data;
+    return data;
 }
 
 export async function getCategory(slug: string): Promise<Category | undefined> {
-  const categories = await getCategories();
-  return categories.find((category) => category.slug === slug);
+    const categories = await getCategories();
+    return categories.find((category) => category.slug === slug);
 }
 
 export async function getProducts(): Promise<Product[]> {
-  const res = await fetch(
-    "https://openapi.programming-hero.com/api/bazardor/products"
-  );
+    const res = await fetch(
+        "https://openapi.programming-hero.com/api/bazardor/products",
+    );
 
-  if (!res.ok) {
-    throw new Error(`Failed to load Products: ${res.status}`);
-  }
+    if (!res.ok) {
+        throw new Error(`Failed to load Products: ${res.status}`);
+    }
 
-  const data = await res.json();
+    const data = await res.json();
 
-  return data;
+    return data;
+}
+
+export async function getProduct(slug: string): Promise<Product | undefined> {
+    const products = await getProducts();
+    return products.find((product) => product.slug === slug);
 }
 
 export async function getProductsByCategory(slug: string): Promise<Product[]> {
-  const products = await getProducts();
-  return products.filter((product) => product.category === slug);
+    const products = await getProducts();
+    return products.filter((product) => product.category === slug);
 }
 
 export const topRisers = (products: Product[], n = 6) =>
-  products
-    .filter((product) => product.change.dir === "up" && product.change.pct > 0)
-    .sort((a, b) => b.change.pct - a.change.pct)
-    .slice(0, n);
+    products
+        .filter(
+            (product) => product.change.dir === "up" && product.change.pct > 0,
+        )
+        .sort((a, b) => b.change.pct - a.change.pct)
+        .slice(0, n);
 export const topFallers = (products: Product[], n = 6) =>
-  products
-    .filter((product) => product.change.dir === "down" && product.change.pct < 0)
-    .sort((a, b) => a.change.pct - b.change.pct)
-    .slice(0, n);
+    products
+        .filter(
+            (product) =>
+                product.change.dir === "down" && product.change.pct < 0,
+        )
+        .sort((a, b) => a.change.pct - b.change.pct)
+        .slice(0, n);
