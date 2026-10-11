@@ -20,3 +20,17 @@ export function formatPercent(n: number): string {
 export function formatTaka(n: number): string {
     return `${formatNumber(n)} টাকা`;
 }
+
+export function banglaDateTime(date: Date): string {
+  const d = date.toLocaleDateString("bn-BD", {
+    dateStyle: "full",
+    timeZone: "Asia/Dhaka",
+  });
+  const t = date.toLocaleTimeString("bn-BD", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Dhaka",
+  });
+  return `${d} — ${t}`;
+}

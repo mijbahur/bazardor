@@ -2,29 +2,24 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import GoogleIcon from "./GoogleIcon";
 import { authClient } from "@/lib/auth-client";
 
-const safePath = (p: string | null) =>
-    p && p.startsWith("/") && !p.startsWith("//") ? p : "/";
 export default function SignInForm() {
     const router = useRouter();
     const params = useSearchParams();
-    const redirectTo = safePath(params.get("redirect"));
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const toasted = useRef(false);
-
     useEffect(() => {
-        if (params.get("reason") === "protected" && !toasted.current) {
-            toasted.current = true;
+        if (params.get("reason") === "protected") {
             toast.error("এই পেজ দেখতে আগে সাইন ইন করতে হবে।", {
                 id: "protected",
             });
+            router.replace("/signin");
         }
-    }, [params]);
+    }, [params, router]);
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,14 +47,14 @@ export default function SignInForm() {
         }
 
         toast.success("সফলভাবে সাইন ইন হয়েছে!");
-        router.push(redirectTo);
+        router.push("/");
         router.refresh();
     };
 
     const onGoogle = async () => {
         const { error } = await authClient.signIn.social({
             provider: "google",
-            callbackURL: redirectTo,
+            callbackURL: "/",
         });
         if (error) toast.error("Google দিয়ে সাইন ইন করা যায়নি।");
     };
