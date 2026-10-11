@@ -38,9 +38,9 @@ export default function SignUpForm() {
             email,
             password,
         });
-        setLoading(false);
 
         if (signUpError) {
+            setLoading(false);
             return fail(
                 signUpError.code === "USER_ALREADY_EXISTS" ||
                     signUpError.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"
@@ -49,14 +49,23 @@ export default function SignUpForm() {
             );
         }
 
+        const { error: signOutError } = await authClient.signOut();
+        setLoading(false);
+
+        if (signOutError) {
+            return fail(
+                "অ্যাকাউন্ট তৈরি হয়েছে, কিন্তু আগের সেশন থেকে সাইন আউট করা যায়নি। আবার চেষ্টা করুন।",
+            );
+        }
+
         toast.success("অ্যাকাউন্ট তৈরি হয়েছে! এখন সাইন ইন করুন।");
-        router.push("/signin");
+        router.replace("/signin");
     };
 
     const onGoogle = async () => {
         const { error } = await authClient.signIn.social({
             provider: "google",
-            callbackURL: "/",
+            callbackURL: "/signup/complete",
         });
         if (error) toast.error("Google দিয়ে সাইন আপ করা যায়নি।");
     };
@@ -64,7 +73,7 @@ export default function SignUpForm() {
     const onGithub = async () => {
         const { error } = await authClient.signIn.social({
             provider: "github",
-            callbackURL: "/",
+            callbackURL: "/signup/complete",
         });
         if (error) toast.error("GitHub দিয়ে সাইন ইন করা যায়নি।");
     };
@@ -162,13 +171,6 @@ export default function SignUpForm() {
                     <GithubIcon /> GitHub
                 </button>
             </div>
-            {/* <button
-                onClick={onGoogle}
-                className="btn w-full rounded-xl border-line bg-white font-medium text-ink hover:border-brand"
-            >
-                <GoogleIcon /> Google দিয়ে চালিয়ে যান
-            </button> */}
-
             <p className="mt-6 text-center text-sm">
                 অ্যাকাউন্ট আছে?{" "}
                 <Link
