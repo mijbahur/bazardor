@@ -7,6 +7,17 @@ export async function proxy(request: NextRequest) {
     const session = await auth.api.getSession({
         headers: await headers(),
     });
+    const isAuthPage =
+        request.nextUrl.pathname === "/signin" ||
+        request.nextUrl.pathname === "/signup";
+
+    if (session?.user && isAuthPage) {
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    if (isAuthPage) {
+        return NextResponse.next();
+    }
 
     if (!session?.user) {
         const url = new URL("/signin", request.url);
@@ -18,5 +29,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/product/:path*", "/profile/:path*"],
+    matcher: ["/product/:path*", "/profile/:path*", "/signin", "/signup"],
 };
