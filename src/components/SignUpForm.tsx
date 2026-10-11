@@ -52,6 +52,14 @@ export default function SignUpForm() {
         router.push("/signin");
     };
 
+    const onGoogle = async () => {
+        const { error } = await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/",
+        });
+        if (error) toast.error("Google দিয়ে সাইন আপ করা যায়নি।");
+    };
+
     const inputCls = "input w-full rounded-xl border-line bg-white";
 
     return (
@@ -133,7 +141,7 @@ export default function SignUpForm() {
             </div>
 
             <button
-                // onClick={}
+                onClick={onGoogle}
                 className="btn w-full rounded-xl border-line bg-white font-medium text-ink hover:border-brand"
             >
                 <GoogleIcon /> Google দিয়ে চালিয়ে যান

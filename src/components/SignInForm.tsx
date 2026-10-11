@@ -9,7 +9,6 @@ import { authClient } from "@/lib/auth-client";
 
 const safePath = (p: string | null) =>
     p && p.startsWith("/") && !p.startsWith("//") ? p : "/";
-
 export default function SignInForm() {
     const router = useRouter();
     const params = useSearchParams();
