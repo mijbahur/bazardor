@@ -4,15 +4,12 @@ import { PageSkeleton } from "@/components/Skeletons";
 import SortableProducts from "@/components/SortableProducts";
 import { getCategories, getProducts, topFallers, topRisers } from "@/lib/api";
 import { Suspense } from "react";
-// import { Suspense } from "react";
 
 const [products, categories] = await Promise.all([
     getProducts(),
     getCategories(),
 ]);
-
 export default function Home() {
-    // const products = await getProducts();
     return (
         <div className="space-y-12">
             <Hero />

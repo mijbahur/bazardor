@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-// import NotFoundView from "@/components/NotFoundView";
 import SortableProducts from "@/components/SortableProducts";
 import { getCategory, getProductsByCategory } from "@/lib/api";
 import { toBn } from "@/lib/bangla";
@@ -22,13 +21,7 @@ export default async function CategoryPage({ params }: Params) {
     getProductsByCategory(slug),
   ]);
 
-  // invalid slug -> real 404 (app/not-found.tsx)
   if (!category) notFound();
-
-  // valid category without any item -> friendly empty state
-  // if (products.length === 0) {
-  //   return <NotFoundView message="এই বিভাগে এখনো কোনো পণ্য নেই।" />;
-  // }
 
   return (
     <div>

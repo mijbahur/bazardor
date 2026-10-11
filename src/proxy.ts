@@ -8,13 +8,13 @@ export async function proxy(request: NextRequest) {
         headers: await headers(),
     });
 
-    const user = session?.user
-    if (!user) {
+    if (!session?.user) {
         const url = new URL("/signin", request.url);
         url.searchParams.set("reason", "protected");
         return NextResponse.redirect(url);
     }
 
+    return NextResponse.next();
 }
 
 export const config = {
