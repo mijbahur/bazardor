@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
-import Header from "@/compnents/Header";
+import Header from "@/components/Header";
 
 const hind = Hind_Siliguri({
     subsets: ["latin", "bengali"],

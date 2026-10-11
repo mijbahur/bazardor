@@ -11,7 +11,7 @@ type NavLinksClientProps = {
 const NavLinksClient = ({ categories }: NavLinksClientProps) => {
     const pathname = usePathname();
 
-    const link = (href: string, label: string) => {
+    const link = (href: string, label: string, icon: string) => {
         const active =
             pathname === href ||
             (href !== "/" && pathname.startsWith(`${href}/`));
@@ -21,12 +21,13 @@ const NavLinksClient = ({ categories }: NavLinksClientProps) => {
                 key={href}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition sm:text-base ${
+                className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors sm:text-base ${
                     active
-                        ? "bg-brand text-white shadow-sm"
-                        : "text-ink hover:bg-brand-soft hover:text-brand-dark"
+                        ? "border-brand bg-brand text-white shadow-sm"
+                        : "border-line bg-white text-ink hover:border-brand hover:bg-brand-soft hover:text-brand-dark"
                 }`}
             >
+                <span aria-hidden="true">{icon}</span>
                 {label}
             </Link>
         );
@@ -37,9 +38,13 @@ const NavLinksClient = ({ categories }: NavLinksClientProps) => {
             aria-label="পণ্যের বিভাগ"
             className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto px-4 pb-1 sm:mx-0 sm:justify-center sm:px-0"
         >
-            {link("/", "হোম")}
+            {link("/", "হোম", "🏠")}
             {categories.map((category) =>
-                link(`/category/${category.slug}`, category.nameBn),
+                link(
+                    `/category/${category.slug}`,
+                    category.nameBn,
+                    category.icon,
+                ),
             )}
         </nav>
     );

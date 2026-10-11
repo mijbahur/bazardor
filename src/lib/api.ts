@@ -13,6 +13,12 @@ export async function getCategories(): Promise<Category[]> {
 
   return data;
 }
+
+export async function getCategory(slug: string): Promise<Category | undefined> {
+  const categories = await getCategories();
+  return categories.find((category) => category.slug === slug);
+}
+
 export async function getProducts(): Promise<Product[]> {
   const res = await fetch(
     "https://openapi.programming-hero.com/api/bazardor/products"
@@ -25,6 +31,11 @@ export async function getProducts(): Promise<Product[]> {
   const data = await res.json();
 
   return data;
+}
+
+export async function getProductsByCategory(slug: string): Promise<Product[]> {
+  const products = await getProducts();
+  return products.filter((product) => product.category === slug);
 }
 
 export const topRisers = (products: Product[], n = 6) =>
